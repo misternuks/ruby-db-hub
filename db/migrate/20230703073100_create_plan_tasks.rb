@@ -4,7 +4,7 @@ class CreatePlanTasks < ActiveRecord::Migration[7.0]
       t.string :title
       t.text :details
       t.integer :time
-      t.references :plan_user, null: false, foreign_key: true
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end

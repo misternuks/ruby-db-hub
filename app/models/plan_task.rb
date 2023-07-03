@@ -1,3 +1,3 @@
 class PlanTask < ApplicationRecord
-  belongs_to :PlanUser
+  belongs_to :user
 end
