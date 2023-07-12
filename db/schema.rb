@@ -10,9 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_03_073112) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_12_111252) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "movie_bookmarks", force: :cascade do |t|
+    t.string "comment"
+    t.bigint "movie_movie_id", null: false
+    t.bigint "movie_list_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_list_id"], name: "index_movie_bookmarks_on_movie_list_id"
+    t.index ["movie_movie_id"], name: "index_movie_bookmarks_on_movie_movie_id"
+  end
+
+  create_table "movie_lists", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "movie_movies", force: :cascade do |t|
+    t.string "title"
+    t.string "summary"
+    t.string "image_url"
+    t.float "rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "plan_tasks", force: :cascade do |t|
     t.string "title"
@@ -37,5 +62,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_03_073112) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "movie_bookmarks", "movie_lists"
+  add_foreign_key "movie_bookmarks", "movie_movies"
   add_foreign_key "plan_tasks", "users"
 end
